@@ -1,0 +1,5 @@
+C:\websites\dnndev.me\bin\EditCoursePluggs.dll
+C:\websites\dnndev.me\bin\EditCoursePluggs.pdb
+C:\websites\dnndev.me\DesktopModules\EditCoursePluggs\obj\Debug\EditCoursePluggs.csprojResolveAssemblyReference.cache
+C:\websites\dnndev.me\DesktopModules\EditCoursePluggs\obj\Debug\EditCoursePluggs.dll
+C:\websites\dnndev.me\DesktopModules\EditCoursePluggs\obj\Debug\EditCoursePluggs.pdb
