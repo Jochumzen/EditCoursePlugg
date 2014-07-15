@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BackToCourse.Text" xml:space="preserve">
+    <value>(Volver a Curso)</value>
+  </data>
   <data name="BasicSettings.Text" xml:space="preserve">
     <value>Basic EditCoursePluggs Settings</value>
   </data>
@@ -134,5 +137,8 @@
   </data>
   <data name="EditModule.Text" xml:space="preserve">
     <value>Add Item</value>
+  </data>
+  <data name="Title.Text" xml:space="preserve">
+    <value>Añadir, eliminar y reordenar pluggs en ​​Curso</value>
   </data>
 </root>

@@ -58,6 +58,24 @@ namespace Plugghest.Modules.EditCoursePluggs {
         protected global::System.Web.UI.WebControls.HiddenField hdnNodeCPId;
         
         /// <summary>
+        /// lblTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTitle;
+        
+        /// <summary>
+        /// hlBackToCourse control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hlBackToCourse;
+        
+        /// <summary>
         /// lblNoCP control.
         /// </summary>
         /// <remarks>

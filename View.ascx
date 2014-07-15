@@ -1,8 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Plugghest.Modules.EditCoursePluggs.View" %>
 
-<script src="/DesktopModules/EditSubjects/js/tree.jquery.js"></script>
-<link href="/DesktopModules/EditSubjects/js/jqtree.css" rel="stylesheet" />
-<link href="/DesktopModules/EditSubjects/module.css" rel="stylesheet" />
+<script src="/js/jqTree/tree.jquery.js"></script>
+<link href="/js/jqTree/jqtree.css" rel="stylesheet" />
 
 <asp:HiddenField ID="hdnTreeData" runat="server" Value="" />
 <asp:HiddenField ID="hdnDragAndDrop" runat="server" Value="false" />
@@ -10,6 +9,7 @@
 <asp:HiddenField ID="hdnGetJosnResult" runat="server" />
 <asp:HiddenField ID="hdnNodeCPId" runat="server" />
 
+<h2><asp:Label ID="lblTitle" runat="server" resourcekey="Title"></asp:Label>&nbsp;<asp:HyperLink ID="hlBackToCourse" runat="server" resourcekey="BackToCourse"/></h2>
 <div class="tree">
     <div id="tree2"></div>
 </div>
@@ -37,7 +37,7 @@
         <asp:Button ID="btnAddAfter" resourcekey="AddAfter.Text" runat="server" OnClientClick="return getCPid();" OnClick="btnAddAfter_Click" />
         <asp:Button ID="btnAddBefore" resourcekey="AddBefore.Text" runat="server" OnClientClick="return getCPid();" OnClick="btnAddBefore_Click"/>
         <asp:Button ID="btnAddChild" resourcekey="AddChild.Text" runat="server" OnClientClick="return getCPid();" OnClick="btnAddChild_Click"/>
-        <asp:Button ID="btnAdd" resourcekey="Add.Text" runat="server" OnClientClick="return ChecktxtAddPlugg();" OnClick="btnAdd_Click"/>
+        <asp:Button ID="btnAdd" resourcekey="Add.Text" runat="server" Visible="false" OnClientClick="return ChecktxtAddPlugg();" OnClick="btnAdd_Click"/>
         <asp:Button ID="btnCancelAdd" resourcekey="CancelAdd.Text" runat="server" OnClick="btnCancelAdd_Click"/> <br />
         <asp:Label ID="lblCannotAdd" resourcekey="CannotAdd.Text" runat="server"  Visible ="false"/>
     </div>

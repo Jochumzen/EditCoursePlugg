@@ -132,6 +132,9 @@
   <data name="AddPluggId.Text" xml:space="preserve">
     <value>Enter the ID of the Plugg/Pluggs you would like to add to the Course. To add several Pluggs, comma-separate the ID's.</value>
   </data>
+  <data name="BackToCourse.Text" xml:space="preserve">
+    <value>(Back to Course)</value>
+  </data>
   <data name="BasicSettings.Text" xml:space="preserve">
     <value>Basic EditCoursePluggs Settings</value>
   </data>
@@ -193,6 +196,6 @@
     <value>Save reordering</value>
   </data>
   <data name="Title.Text" xml:space="preserve">
-    <value>Title</value>
+    <value>Add, Remove and Reorder Pluggs in Course</value>
   </data>
 </root>

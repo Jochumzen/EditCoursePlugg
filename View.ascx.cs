@@ -59,6 +59,7 @@ namespace Plugghest.Modules.EditCoursePluggs
                 CourseId = Convert.ToInt32(courseStr);
                 BaseHandler bh = new BaseHandler();
                 CourseContainer cc = new CourseContainer(Language, CourseId);
+                hlBackToCourse.NavigateUrl = DotNetNuke.Common.Globals.NavigateURL(cc.TheCourse.TabId, "", "");
                 if (cc.TheCourse.CreatedInCultureCode != Language)
                 {
                     hlIncorrectCC.Visible = true;
@@ -108,7 +109,7 @@ namespace Plugghest.Modules.EditCoursePluggs
         {
             BaseHandler bh = new BaseHandler();
             var tree = bh.GetCoursePluggsAsTree(CourseId, Language);
-            if(tree.Count == 0)
+            if(tree.Count() == 0)
             {
                 if (Page.Request.QueryString["edit"] == "add")
                 {
@@ -124,8 +125,9 @@ namespace Plugghest.Modules.EditCoursePluggs
                     btnReorder.Enabled = false;
                 }
             }
-            JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
-            hdnTreeData.Value = TheSerializer.Serialize(tree);
+            //JavaScriptSerializer TheSerializer = new JavaScriptSerializer();
+            //hdnTreeData.Value = TheSerializer.Serialize(tree);
+            hdnTreeData.Value = Newtonsoft.Json.JsonConvert.SerializeObject(tree);
         }
 
         public ModuleActionCollection ModuleActions
@@ -160,9 +162,10 @@ namespace Plugghest.Modules.EditCoursePluggs
 
         protected void btnSaveReordering_Click(object sender, EventArgs e)
         {
-            JavaScriptSerializer js = new JavaScriptSerializer();
+            //JavaScriptSerializer js = new JavaScriptSerializer();
             string json = hdnGetJosnResult.Value;
-            var tree = js.Deserialize<Plugghest.Base2.CoursePlugg[]>(json).ToList();
+            //var tree = js.Deserialize<Plugghest.Base2.CoursePlugg[]>(json).ToList();
+            var tree = Newtonsoft.Json.JsonConvert.DeserializeObject<CoursePlugg[]>(json).ToList();// js.Deserialize<Plugghest.Base2.CoursePlugg[]>(json).ToList();
 
             BaseHandler bh = new BaseHandler();
             bh.UpdateCourseTree(tree);
@@ -177,8 +180,7 @@ namespace Plugghest.Modules.EditCoursePluggs
         protected void btnRemoveSelectedPlugg_Click(object sender, EventArgs e)
         {
             BaseHandler bh = new BaseHandler();
-            var tree = bh.GetCoursePluggsAsTree(CourseId,Language);
-            CoursePlugg cp = bh.FindCoursePlugg(tree, Convert.ToInt32(hdnNodeCPId.Value));
+            CoursePlugg cp = bh.FindCoursePlugg(Language, CourseId, Convert.ToInt32(hdnNodeCPId.Value));
             if (cp.children.Count == 0)
             {
                 bh.DeleteCP(Convert.ToInt32(hdnNodeCPId.Value));
@@ -208,12 +210,26 @@ namespace Plugghest.Modules.EditCoursePluggs
 
         protected void btnAddBefore_Click(object sender, EventArgs e)
         {
-
+            if (!CheckAddText())
+            {
+                lblCannotAdd.Visible = true;
+                return;
+            }
+            BaseHandler bh = new BaseHandler();
+            CoursePluggEntity SelectedCP = bh.GetCPEntity(Convert.ToInt32(hdnNodeCPId.Value));
+            CreateCP(SelectedCP.CPOrder, SelectedCP.MotherId);
         }
 
         protected void btnAddChild_Click(object sender, EventArgs e)
         {
-
+            if (!CheckAddText())
+            {
+                lblCannotAdd.Visible = true;
+                return;
+            }
+            BaseHandler bh = new BaseHandler();
+            CoursePluggEntity SelectedCP = bh.GetCPEntity(Convert.ToInt32(hdnNodeCPId.Value));
+            CreateCP(1, SelectedCP.CoursePluggId);
         }
 
         //Add to empty Course
