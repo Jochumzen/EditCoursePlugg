@@ -15,7 +15,7 @@
 </div>
 
 <asp:Label ID="lblNoCP" resourcekey="NoCP.Text" runat="server" Visible="false" />
-<asp:Hyperlink ID="hlIncorrectCC" resourcekey="IncorrectCC.Text" runat ="server" visible="false"/><br />
+<asp:Hyperlink ID="hlIncorrectCC" resourcekey="IncorrectCC" runat ="server" visible="false"/><br />
 <asp:Button ID="btnReorder" runat="server" resourcekey="Reorder.Text" OnClick="btnReorder_Click" />
 <asp:Button ID="btnAddNewPluggs" runat="server" resourcekey="AddNew.Text" OnClick="btnAddNewPluggs_Click" />
 <asp:Button ID="btnRemovePluggs" runat="server" resourcekey="Remove.Text" OnClick="btnRemovePluggs_Click" />

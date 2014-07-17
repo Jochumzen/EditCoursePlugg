@@ -51,30 +51,41 @@ namespace Plugghest.Modules.EditCoursePluggs
                 string courseStr = Page.Request.QueryString["c"];
                 if (courseStr == null)
                 {
-                    btnReorder.Visible = false;
-                    btnAddNewPluggs.Visible = false;
-                    btnRemovePluggs.Visible = false;
+                    HideButtons();
                     return;
                 }
-                CourseId = Convert.ToInt32(courseStr);
+                bool isNum = int.TryParse(courseStr, out CourseId);
+                if (!isNum)
+                {
+                    HideButtons();
+                    return;
+                }
                 BaseHandler bh = new BaseHandler();
                 CourseContainer cc = new CourseContainer(Language, CourseId);
+                if (cc.TheCourse == null)
+                {
+                    HideButtons();
+                    return;
+                } 
                 hlBackToCourse.NavigateUrl = DotNetNuke.Common.Globals.NavigateURL(cc.TheCourse.TabId, "", "");
                 if (cc.TheCourse.CreatedInCultureCode != Language)
                 {
                     hlIncorrectCC.Visible = true;
                     hlIncorrectCC.NavigateUrl = DotNetNuke.Common.Globals.NavigateURL(TabId, "", "language=" + cc.TheCourse.CreatedInCultureCode, "c=" + CourseId);
-                    btnReorder.Visible = false;
-                    btnAddNewPluggs.Visible = false;
-                    btnRemovePluggs.Visible = false;
+                    HideButtons();
                     return;
                 }
                 string editStr = Page.Request.QueryString["edit"];
+                bool IsAuthorized = ((this.UserId != -1 && cc.TheCourse.WhoCanEdit == EWhoCanEdit.Anyone) || cc.TheCourse.CreatedByUserId == this.UserId || (UserInfo.IsInRole("Administator")));
+
+                if (!IsAuthorized)
+                {
+                    HideButtons();
+                    BindTree(); 
+                }
                 if (editStr == "reorder")
                 {
-                    btnReorder.Visible = false;
-                    btnAddNewPluggs.Visible = false;
-                    btnRemovePluggs.Visible = false;
+                    HideButtons();
                     btnSaveReordering.Visible = true;
                     btnCancelReordering.Visible = true;
                     hdnSelectable.Value = "true";
@@ -82,17 +93,13 @@ namespace Plugghest.Modules.EditCoursePluggs
                 }
                 if (editStr == "add")
                 {
-                    btnReorder.Visible = false;
-                    btnAddNewPluggs.Visible = false;
-                    btnRemovePluggs.Visible = false;
+                    HideButtons();
                     hdnSelectable.Value = "true";
                     pnlAddPluggs.Visible = true;
                 }
                 if (editStr == "remove")
                 {
-                    btnReorder.Visible = false;
-                    btnAddNewPluggs.Visible = false;
-                    btnRemovePluggs.Visible = false;
+                    HideButtons();
                     hdnSelectable.Value = "true";
                     btnRemoveSelectedPlugg.Visible = true;
                     btnCancelRemove.Visible = true;
@@ -103,6 +110,13 @@ namespace Plugghest.Modules.EditCoursePluggs
             {
                 Exceptions.ProcessModuleLoadException(this, exc);
             }
+        }
+
+        private void HideButtons()
+        {
+            btnReorder.Visible = false;
+            btnAddNewPluggs.Visible = false;
+            btnRemovePluggs.Visible = false;
         }
 
         public void BindTree()
